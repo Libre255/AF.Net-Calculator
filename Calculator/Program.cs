@@ -1,5 +1,4 @@
 ﻿using static System.Console;
-using System;
 namespace CalcutatorProject
 {
     class Program
@@ -32,15 +31,15 @@ namespace CalcutatorProject
 
             }
         }
-        private int[] instructions(string method)
+        private double[] instructions(string method)
         {
             WriteLine("Write the first number then press enter");
             WriteLine("Then Write the second number and press enter");
-            int n1 = NrValidator();
+            double n1 = NrValidator();
             WriteLine(method);
-            int n2 = NrValidator();
+            double n2 = NrValidator();
             WriteLine($"-----");
-            return new int[]{n1, n2};
+            return new double[]{n1, n2};
         }
         private void ReRunMenu()
         {
@@ -51,26 +50,26 @@ namespace CalcutatorProject
         }
         private void Sum()
         {
-            int[] numbers = instructions("+");
+            double[] numbers = instructions("+");
             WriteLine($"{numbers[0] + numbers[1]}");
             ReRunMenu();
         }
 
         private void Minus()
         {
-            int[]numbers = instructions("-");
+            double[]numbers = instructions("-");
             WriteLine($"{numbers[0] - numbers[1]}");
             ReRunMenu();
         }
         private void Multiplication()
         {
-            int[] numbers = instructions("*");
+            double[] numbers = instructions("*");
             WriteLine($"{numbers[0] * numbers[1]}");
             ReRunMenu();
         }
         private void Division()
         {
-            int[] numbers = instructions("/");
+            double[] numbers = instructions("/");
             if(numbers[0] == 0 || numbers[1] == 0)
             {
                 WriteLine("0");
@@ -78,16 +77,16 @@ namespace CalcutatorProject
             }
             else
             {
-                WriteLine($"{numbers[0]/numbers[1]}");
+                WriteLine($"{numbers[0] / numbers[1]}");
             }
             
             ReRunMenu();
         }
 
-        private int NrValidator()
+        private double NrValidator()
         {
-            int checkRuns = 1;
-            int numberOutput;
+            double checkRuns = 1;
+            double numberOutput;
             string input;
             do
             {
@@ -97,7 +96,7 @@ namespace CalcutatorProject
                 }
                 input = ReadLine();
                 checkRuns++;
-            } while (int.TryParse(input, out numberOutput) == false);
+            } while (double.TryParse(input, out numberOutput) == false);
             return numberOutput;
         }
     }
