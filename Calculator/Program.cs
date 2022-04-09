@@ -10,36 +10,45 @@ namespace CalcutatorProject
         }
         
     }
-    class Calculator
+    public class Calculator
     {
+        double Result;
+        double [] inputsByUser = new double[2];
         public void menu()
         {
             string[] methods = { "+", "-", "*", "/"};
             Menu MainMenu = new Menu("Chose the mathematic method", methods);
             int seletedMethod = MainMenu.Run();
 
+            instructions(methods[seletedMethod]);
+
             switch (seletedMethod)
             {
-                case 0: Sum();
+                case 0: 
+                    Result = Sum(inputsByUser[0], inputsByUser[1]);
                     break;
-                case 1: Minus();
+                case 1:
+                    Result = Minus(inputsByUser);
                     break;
-                case 2: Multiplication();
+                case 2:
+                    Result = Multiplication(inputsByUser);
                     break;
-                case 3:Division();
+                case 3:
+                    Result = Division(inputsByUser);
                     break;
 
             }
+            WriteLine(Result);
+            ReRunMenu();
         }
-        private double[] instructions(string method)
+        private void instructions(string MetodSymbol)
         {
             WriteLine("Write the first number then press enter");
             WriteLine("Then Write the second number and press enter");
-            double n1 = NrValidator();
-            WriteLine(method);
-            double n2 = NrValidator();
+            inputsByUser[0] = NrValidator();
+            WriteLine(MetodSymbol);
+            inputsByUser[1] = NrValidator();
             WriteLine($"-----");
-            return new double[]{n1, n2};
         }
         private void ReRunMenu()
         {
@@ -48,39 +57,43 @@ namespace CalcutatorProject
             ReadKey();
             menu();
         }
-        private void Sum()
+        public double Sum(double FirstNr, double SecondNr)
         {
-            double[] numbers = instructions("+");
-            WriteLine($"{numbers[0] + numbers[1]}");
-            ReRunMenu();
+           return FirstNr + SecondNr;
         }
-
-        private void Minus()
+        public double Sum(double [] Inputs)
         {
-            double[]numbers = instructions("-");
-            WriteLine($"{numbers[0] - numbers[1]}");
-            ReRunMenu();
+            return Inputs.Sum();
         }
-        private void Multiplication()
+        public double Minus(double FirstNr, double SecondNr)
         {
-            double[] numbers = instructions("*");
-            WriteLine($"{numbers[0] * numbers[1]}");
-            ReRunMenu();
+            return FirstNr- SecondNr;
         }
-        private void Division()
+        public double Minus(double[] Inputs)
         {
-            double[] numbers = instructions("/");
-            if(numbers[0] == 0 || numbers[1] == 0)
+            double startNr = Inputs[0];
+            for(int i = 1; i< Inputs.Length; i++)
             {
-                WriteLine("0");
+                startNr -= Inputs[i];
+            }
+            return startNr;
+        }
+        public double Multiplication(double[] Inputs)
+        {
+            return Inputs[0] * Inputs[1];
+        }
+        public double Division(double[] Inputs)
+        {
+            if(Inputs[0] == 0 || Inputs[1] == 0)
+            {
                 WriteLine("you trying to divide by zero");
+                return 0;
             }
             else
             {
-                WriteLine($"{numbers[0] / numbers[1]}");
+                return Inputs[0] / Inputs[1];
             }
             
-            ReRunMenu();
         }
 
         private double NrValidator()
